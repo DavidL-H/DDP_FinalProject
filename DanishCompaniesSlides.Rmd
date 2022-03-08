@@ -1,0 +1,45 @@
+---
+title: "Danish Biotech, Chemical and Medtech Industries"
+author: "David Lennox-Hvenekilde"
+date: "08/03/2022"
+output: ioslides_presentation
+---
+
+<style type="text/css">
+  body{
+  font-size: 5pt;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+## Introduction
+In this assignment, I will analyze Danish Danish Biotech, Chemical and Medtech companies using some basic metric about these companies (Revenue, Employees, EBITA and Year established). The Danish website, [Proff.dk](https://proff.dk) has a lot of information on Danish companies. Each company is tagged with one or more Industries. You can buy Excel files with company information, but instead I decided to webscape the html to gather the information, instead of paying for it. This ended up taking a while, and I made a separate repository for this, in which one can see the developed functions: [github.com/DavidL-H/ProffR](https://github.com/DavidL-H/ProffR). In this project, I will make use of the gathered and cleaned data, available in the aforementioned github repo-
+
+
+
+## Data sourcing
+Here is the cleaned data on the companies companies using some basic metric about these companies (Revenue, Employees, EBITA and Year established)
+
+```{r readBiotechData, echo = TRUE}
+urlfile<-'https://raw.githubusercontent.com/DavidL-H/ProffR/main/CompanyMetricsClean.csv'
+Companies<-read.csv(urlfile)
+colnames(Companies)
+nrow(Companies)
+```
+
+
+## Industues
+We have data on 774 companies. Looking at the code below, there are 8 unqiue combinations of Industries. As can be seen, some companies are tagged with more than one Industry
+```{r Industries, echo = TRUE}
+unique(Companies$Industry)
+```
+
+## Plotting with Plotly
+For visualizing some of this data be can e.g. look at the relationship between employee numbers and revenue or EBITA (Earnings before interest, taxes, and amortization). This is what has been done in the developed Shiny app. In the app we will give the option to selection specific size companies (employees) and industries, and use Plotly so the user can zoom and hover over points to better explore the companies vizualised. The base R plotting doesn't give much information (below)
+```{r plot1}
+plot(Companies$Employees, Companies$Revenue_DKK)
+```
+
